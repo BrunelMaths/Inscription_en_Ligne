@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription en ligne</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Formulaire d'Inscription</h2>
+    <form id="inscriptionForm">
+        <input type="text" id="nom" placeholder="Nom" required>
+        <input type="text" id="prenom" placeholder="Prénom" required>
+        <input type="text" id="classe" placeholder="Classe" required>
+        <input type="text" id="ecole" placeholder="École d'origine" required>
+        <select id="serie" required>
+            <option value="">Série</option>
+            <option value="A">A</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="L">L</option>
+            <option value="S">S</option>
+            <option value="OSE">OSE</option>
+        </select>
+        <input type="text" id="adresse" placeholder="Adresse" required>
+        <input type="tel" id="telephone" placeholder="Téléphone" required>
+        <button type="submit">S'inscrire</button>
+    </form>
+
+    <h2>Liste des Inscrits</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Classe</th>
+                <th>École</th>
+                <th>Série</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>

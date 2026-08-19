@@ -1,0 +1,1 @@
+Trigger build HIRA&VAVAKA_FIARAM v1.3.0 HIRA shell.

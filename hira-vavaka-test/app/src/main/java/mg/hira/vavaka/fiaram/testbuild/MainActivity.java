@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setGravity(Gravity.CENTER_HORIZONTAL);
-        root.setPadding(dp(24), dp(32), dp(24), dp(32));
+        root.setPadding(dp(20), dp(22), dp(20), dp(30));
         root.setBackgroundColor(Color.rgb(247, 249, 248));
         scroll.addView(root, new ScrollView.LayoutParams(
                 ScrollView.LayoutParams.MATCH_PARENT,
@@ -35,21 +35,22 @@ public class MainActivity extends Activity {
         ImageView logo = new ImageView(this);
         Drawable icon = getResources().getDrawable(R.drawable.app_icon);
         logo.setImageDrawable(icon);
+        logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         logo.setAdjustViewBounds(true);
-        LinearLayout.LayoutParams logoLp = new LinearLayout.LayoutParams(dp(160), dp(160));
-        logoLp.bottomMargin = dp(20);
+        LinearLayout.LayoutParams logoLp = new LinearLayout.LayoutParams(dp(190), dp(190));
+        logoLp.bottomMargin = dp(10);
         root.addView(logo, logoLp);
 
         TextView title = new TextView(this);
         title.setText("HIRA&VAVAKA_FIARAM");
-        title.setTextSize(26);
+        title.setTextSize(27);
         title.setTextColor(Color.rgb(9, 45, 92));
         title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         title.setGravity(Gravity.CENTER);
         root.addView(title, matchWrap());
 
         TextView version = new TextView(this);
-        version.setText("v1.2.2 TEST STABLE • TECNO SPARK 8P / Android 11");
+        version.setText("v1.2.3 TEST LOGO STABLE • TECNO SPARK 8P / Android 11");
         version.setTextSize(14);
         version.setTextColor(Color.DKGRAY);
         version.setGravity(Gravity.CENTER);
@@ -58,13 +59,13 @@ public class MainActivity extends Activity {
         root.addView(version, versionLp);
 
         status = new TextView(this);
-        status.setText("DÉMARRAGE NATIF RÉUSSI\n\nCette version sert à vérifier que l'application Android s'ouvre correctement avant de réintégrer progressivement HIRA, Baiboly, Concordance et Vavaka.");
+        status.setText("LOGO OFFICIEL INTÉGRÉ ✓\n\nLa base Android native reste stable et le logo HIRA&VAVAKA_FIARAM est maintenant affiché dans l'application et utilisé comme icône.");
         status.setTextSize(18);
         status.setTextColor(Color.rgb(25, 75, 48));
         status.setGravity(Gravity.CENTER);
-        status.setPadding(dp(12), dp(18), dp(12), dp(18));
+        status.setPadding(dp(12), dp(16), dp(12), dp(16));
         LinearLayout.LayoutParams statusLp = matchWrap();
-        statusLp.topMargin = dp(20);
+        statusLp.topMargin = dp(14);
         root.addView(status, statusLp);
 
         Button test = new Button(this);
@@ -72,11 +73,11 @@ public class MainActivity extends Activity {
         test.setAllCaps(false);
         test.setTextSize(17);
         LinearLayout.LayoutParams btnLp = matchWrap();
-        btnLp.topMargin = dp(16);
+        btnLp.topMargin = dp(12);
         root.addView(test, btnLp);
         test.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                status.setText("TEST OK ✓\n\nL'Activity native fonctionne sans crash. Le téléphone peut exécuter cette nouvelle base Android.");
+                status.setText("TEST OK ✓\n\nL'application et le logo fonctionnent sans crash. La prochaine étape est la réintégration progressive des HIRA.");
             }
         });
 
@@ -87,7 +88,7 @@ public class MainActivity extends Activity {
         about.setGravity(Gravity.CENTER);
         about.setLineSpacing(0, 1.15f);
         LinearLayout.LayoutParams aboutLp = matchWrap();
-        aboutLp.topMargin = dp(28);
+        aboutLp.topMargin = dp(24);
         root.addView(about, aboutLp);
 
         setContentView(scroll);

@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - hira-vavaka-build-v1.2.1
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:

@@ -1,0 +1,1 @@
+FIARAM full data chunks for v1.3.5. These chunks are concatenated, base64-decoded and gunzipped by GitHub Actions BEFORE the Gradle APK build. Do not modify the APK after Gradle signing.

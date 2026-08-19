@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - hira-vavaka-build-v1.2.1
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -45,7 +48,14 @@ jobs:
           cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
           ls -lh HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
 
-      - name: Commit compiled APK
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HIRA_VAVAKA_FIARAM_v1.2.2_TEST
+          path: HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
+
+      - name: Commit compiled APK on push builds
+        if: github.event_name == 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

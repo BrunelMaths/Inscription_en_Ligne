@@ -39,31 +39,39 @@ jobs:
         with:
           gradle-version: '8.7'
 
-      - name: Decode launcher icon
+      - name: Decode launcher icon before build
         working-directory: hira-vavaka-test
         run: |
           base64 -d app/src/main/assets/logo.b64 > app/src/main/res/drawable/app_icon.png
+          test -s app/src/main/assets/index.html
+          test -s app/src/main/res/drawable/app_icon.png
 
-      - name: Build APK shell
+      - name: Build APK entirely with Gradle
         working-directory: hira-vavaka-test
         run: gradle --no-daemon :app:assembleDebug
 
+      - name: Verify APK with Android apksigner
+        run: |
+          APK="hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "$APK"
+          unzip -t "$APK"
+
       - name: Copy APK to branch root
         run: |
-          cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.4.0_BAIBOLY_SHELL.apk HIRA_VAVAKA_FIARAM_v1.4.0_BAIBOLY_SHELL.apk
-          ls -lh HIRA_VAVAKA_FIARAM_v1.4.0_BAIBOLY_SHELL.apk
+          cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk
+          ls -lh HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: HIRA_VAVAKA_FIARAM_v1.4.0_BAIBOLY_SHELL
-          path: HIRA_VAVAKA_FIARAM_v1.4.0_BAIBOLY_SHELL.apk
+          name: HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE
+          path: HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk
 
-      - name: Commit compiled shell
+      - name: Commit compiled APK on push builds
         if: github.event_name == 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add HIRA_VAVAKA_FIARAM_v1.4.0_BAIBOLY_SHELL.apk
-          git commit -m "Build HIRA_VAVAKA_FIARAM v1.4.0 BAIBOLY shell" || exit 0
+          git add HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk
+          git commit -m "Build HIRA_VAVAKA_FIARAM v1.3.2 INSTALL SAFE APK" || exit 0
           git push

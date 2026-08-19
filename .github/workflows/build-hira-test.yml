@@ -1,0 +1,54 @@
+name: Build HIRA VAVAKA APK
+
+on:
+  push:
+    branches:
+      - hira-vavaka-build-v1.2.1
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools"
+
+      - name: Set up Gradle 8.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Build APK
+        working-directory: hira-vavaka-test
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Copy APK to branch root
+        run: |
+          cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
+          ls -lh HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
+
+      - name: Commit compiled APK
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
+          git commit -m "Build HIRA_VAVAKA_FIARAM v1.2.2 TEST APK" || exit 0
+          git push

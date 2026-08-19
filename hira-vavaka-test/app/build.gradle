@@ -1,0 +1,33 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'mg.hira.vavaka.fiaram.testbuild'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'mg.hira.vavaka.fiaram.testbuild'
+        minSdk 19
+        targetSdk 30
+        versionCode 122
+        versionName '1.2.2-test'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = 'HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk'
+        }
+    }
+}

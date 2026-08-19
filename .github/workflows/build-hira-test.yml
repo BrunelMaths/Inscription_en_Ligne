@@ -55,21 +55,17 @@ jobs:
           APK="hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk"
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "$APK"
           unzip -t "$APK"
-          test -s "$HOME/.android/debug.keystore"
 
-      - name: Collect shell and signing key
+      - name: Collect APK shell
         run: |
           cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
-          cp "$HOME/.android/debug.keystore" HIRA_VAVAKA_FIARAM_v1.3.3_debug.keystore
-          ls -lh HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk HIRA_VAVAKA_FIARAM_v1.3.3_debug.keystore
+          ls -lh HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
 
-      - name: Upload shell and signing key
+      - name: Upload APK shell
         uses: actions/upload-artifact@v4
         with:
           name: HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL
-          path: |
-            HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
-            HIRA_VAVAKA_FIARAM_v1.3.3_debug.keystore
+          path: HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
 
       - name: Commit compiled shell on push builds
         if: github.event_name == 'push'

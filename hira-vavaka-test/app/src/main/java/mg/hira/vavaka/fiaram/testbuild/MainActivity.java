@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
         root.addView(title, matchWrap());
 
         TextView version = new TextView(this);
-        version.setText("v1.2.3 TEST LOGO STABLE • TECNO SPARK 8P / Android 11");
+        version.setText("v1.2.4 INSTALL FIX • TECNO SPARK 8P / Android 11");
         version.setTextSize(14);
         version.setTextColor(Color.DKGRAY);
         version.setGravity(Gravity.CENTER);
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
         root.addView(version, versionLp);
 
         status = new TextView(this);
-        status.setText("LOGO OFFICIEL INTÉGRÉ ✓\n\nLa base Android native reste stable et le logo HIRA&VAVAKA_FIARAM est maintenant affiché dans l'application.");
+        status.setText("VERSION INSTALLATION CORRIGÉE ✓\n\nCette APK utilise un nouvel identifiant Android afin d'éviter le conflit avec les anciennes versions de test déjà installées.");
         status.setTextSize(18);
         status.setTextColor(Color.rgb(25, 75, 48));
         status.setGravity(Gravity.CENTER);
@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         root.addView(test, btnLp);
         test.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                status.setText("TEST OK ✓\n\nL'application et le logo fonctionnent sans crash. La prochaine étape est la réintégration progressive des HIRA.");
+                status.setText("TEST OK ✓\n\nL'application s'exécute sur la base Android native. Le logo officiel est chargé et cette version peut coexister avec les anciennes APK de test.");
             }
         });
 

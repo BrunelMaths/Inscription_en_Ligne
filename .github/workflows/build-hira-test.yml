@@ -45,20 +45,20 @@ jobs:
 
       - name: Copy APK to branch root
         run: |
-          cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
-          ls -lh HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
+          cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.2.3_TEST_LOGO.apk HIRA_VAVAKA_FIARAM_v1.2.3_TEST_LOGO.apk
+          ls -lh HIRA_VAVAKA_FIARAM_v1.2.3_TEST_LOGO.apk
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: HIRA_VAVAKA_FIARAM_v1.2.2_TEST
-          path: HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
+          name: HIRA_VAVAKA_FIARAM_v1.2.3_TEST_LOGO
+          path: HIRA_VAVAKA_FIARAM_v1.2.3_TEST_LOGO.apk
 
       - name: Commit compiled APK on push builds
         if: github.event_name == 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk
-          git commit -m "Build HIRA_VAVAKA_FIARAM v1.2.2 TEST APK" || exit 0
+          git add HIRA_VAVAKA_FIARAM_v1.2.3_TEST_LOGO.apk
+          git commit -m "Build HIRA_VAVAKA_FIARAM v1.2.3 TEST LOGO APK" || exit 0
           git push

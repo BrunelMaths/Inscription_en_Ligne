@@ -7,11 +7,12 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId 'mg.hira.vavaka.fiaram.testbuild'
+        // Nouveau package pour éviter le conflit de signature avec les anciennes APK de test
+        applicationId 'mg.hira.vavaka.fiaram.installfix124'
         minSdk 19
         targetSdk 30
-        versionCode 123
-        versionName '1.2.3-test-logo'
+        versionCode 124
+        versionName '1.2.4-install-fix'
     }
 
     buildTypes {
@@ -27,7 +28,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            outputFileName = 'HIRA_VAVAKA_FIARAM_v1.2.3_TEST_LOGO.apk'
+            outputFileName = 'HIRA_VAVAKA_FIARAM_v1.2.4_INSTALL_FIX.apk'
         }
     }
 }

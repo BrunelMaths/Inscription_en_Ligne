@@ -10,8 +10,8 @@ android {
         applicationId 'mg.hira.vavaka.fiaram.testbuild'
         minSdk 19
         targetSdk 30
-        versionCode 122
-        versionName '1.2.2-test'
+        versionCode 123
+        versionName '1.2.3-test-logo'
     }
 
     buildTypes {
@@ -27,7 +27,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            outputFileName = 'HIRA_VAVAKA_FIARAM_v1.2.2_TEST.apk'
+            outputFileName = 'HIRA_VAVAKA_FIARAM_v1.2.3_TEST_LOGO.apk'
         }
     }
 }

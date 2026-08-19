@@ -52,26 +52,30 @@ jobs:
 
       - name: Verify APK with Android apksigner
         run: |
-          APK="hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk"
+          APK="hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk"
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "$APK"
           unzip -t "$APK"
+          test -s "$HOME/.android/debug.keystore"
 
-      - name: Copy APK to branch root
+      - name: Collect shell and signing key
         run: |
-          cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk
-          ls -lh HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk
+          cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
+          cp "$HOME/.android/debug.keystore" HIRA_VAVAKA_FIARAM_v1.3.3_debug.keystore
+          ls -lh HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk HIRA_VAVAKA_FIARAM_v1.3.3_debug.keystore
 
-      - name: Upload artifact
+      - name: Upload shell and signing key
         uses: actions/upload-artifact@v4
         with:
-          name: HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE
-          path: HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk
+          name: HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL
+          path: |
+            HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
+            HIRA_VAVAKA_FIARAM_v1.3.3_debug.keystore
 
-      - name: Commit compiled APK on push builds
+      - name: Commit compiled shell on push builds
         if: github.event_name == 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add HIRA_VAVAKA_FIARAM_v1.3.2_INSTALL_SAFE.apk
-          git commit -m "Build HIRA_VAVAKA_FIARAM v1.3.2 INSTALL SAFE APK" || exit 0
+          git add HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
+          git commit -m "Build HIRA_VAVAKA_FIARAM v1.3.3 full HIRA shell" || exit 0
           git push

@@ -2,9 +2,12 @@ package mg.hira.vavaka.fiaram.testbuild;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class MainActivity extends Activity {
     private TextView status;
@@ -26,19 +32,18 @@ public class MainActivity extends Activity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setGravity(Gravity.CENTER_HORIZONTAL);
-        root.setPadding(dp(20), dp(22), dp(20), dp(30));
+        root.setPadding(dp(20), dp(16), dp(20), dp(30));
         root.setBackgroundColor(Color.rgb(247, 249, 248));
         scroll.addView(root, new ScrollView.LayoutParams(
                 ScrollView.LayoutParams.MATCH_PARENT,
                 ScrollView.LayoutParams.WRAP_CONTENT));
 
         ImageView logo = new ImageView(this);
-        Drawable icon = getResources().getDrawable(R.drawable.app_icon);
-        logo.setImageDrawable(icon);
         logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         logo.setAdjustViewBounds(true);
-        LinearLayout.LayoutParams logoLp = new LinearLayout.LayoutParams(dp(190), dp(190));
-        logoLp.bottomMargin = dp(10);
+        loadOfficialLogo(logo);
+        LinearLayout.LayoutParams logoLp = new LinearLayout.LayoutParams(dp(210), dp(210));
+        logoLp.bottomMargin = dp(6);
         root.addView(logo, logoLp);
 
         TextView title = new TextView(this);
@@ -59,13 +64,13 @@ public class MainActivity extends Activity {
         root.addView(version, versionLp);
 
         status = new TextView(this);
-        status.setText("LOGO OFFICIEL INTÉGRÉ ✓\n\nLa base Android native reste stable et le logo HIRA&VAVAKA_FIARAM est maintenant affiché dans l'application et utilisé comme icône.");
+        status.setText("LOGO OFFICIEL INTÉGRÉ ✓\n\nLa base Android native reste stable et le logo HIRA&VAVAKA_FIARAM est maintenant affiché dans l'application.");
         status.setTextSize(18);
         status.setTextColor(Color.rgb(25, 75, 48));
         status.setGravity(Gravity.CENTER);
         status.setPadding(dp(12), dp(16), dp(12), dp(16));
         LinearLayout.LayoutParams statusLp = matchWrap();
-        statusLp.topMargin = dp(14);
+        statusLp.topMargin = dp(10);
         root.addView(status, statusLp);
 
         Button test = new Button(this);
@@ -73,7 +78,7 @@ public class MainActivity extends Activity {
         test.setAllCaps(false);
         test.setTextSize(17);
         LinearLayout.LayoutParams btnLp = matchWrap();
-        btnLp.topMargin = dp(12);
+        btnLp.topMargin = dp(10);
         root.addView(test, btnLp);
         test.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -92,6 +97,29 @@ public class MainActivity extends Activity {
         root.addView(about, aboutLp);
 
         setContentView(scroll);
+    }
+
+    private void loadOfficialLogo(ImageView logo) {
+        try {
+            InputStream in = getAssets().open("logo.b64");
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int n;
+            while ((n = in.read(buffer)) > 0) {
+                out.write(buffer, 0, n);
+            }
+            in.close();
+            String encoded = new String(out.toByteArray(), "UTF-8").trim();
+            byte[] bytes = Base64.decode(encoded, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            if (bitmap != null) {
+                logo.setImageBitmap(bitmap);
+                return;
+            }
+        } catch (Throwable ignored) {
+        }
+        Drawable fallback = getResources().getDrawable(R.drawable.app_icon);
+        logo.setImageDrawable(fallback);
     }
 
     private LinearLayout.LayoutParams matchWrap() {

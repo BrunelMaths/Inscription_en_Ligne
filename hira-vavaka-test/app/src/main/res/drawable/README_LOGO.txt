@@ -1,1 +1,0 @@
-Logo officiel à utiliser dans l'écran et comme icône : Bible ouverte, croix dorée, portée et notes musicales bleu/or.

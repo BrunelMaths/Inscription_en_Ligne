@@ -1,0 +1,1 @@
+Trigger CI build for HIRA_VAVAKA_FIARAM v1.2.4 INSTALL FIX.

@@ -1,0 +1,33 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'mg.hira.vavaka.fiaram.testbuild'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'mg.hira.vavaka.fiaram.full133'
+        minSdk 19
+        targetSdk 30
+        versionCode 133
+        versionName '1.3.3-full-hira'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = 'HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk'
+        }
+    }
+}

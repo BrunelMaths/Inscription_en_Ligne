@@ -1,0 +1,77 @@
+name: Build HIRA VAVAKA APK
+
+on:
+  push:
+    branches:
+      - hira-vavaka-build-v1.2.1
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools"
+
+      - name: Set up Gradle 8.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Decode launcher icon before build
+        working-directory: hira-vavaka-test
+        run: |
+          base64 -d app/src/main/assets/logo.b64 > app/src/main/res/drawable/app_icon.png
+          test -s app/src/main/assets/index.html
+          test -s app/src/main/res/drawable/app_icon.png
+
+      - name: Build APK entirely with Gradle
+        working-directory: hira-vavaka-test
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Verify APK with Android apksigner
+        run: |
+          APK="hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "$APK"
+          unzip -t "$APK"
+
+      - name: Collect APK shell
+        run: |
+          cp hira-vavaka-test/app/build/outputs/apk/debug/HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
+          ls -lh HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
+
+      - name: Upload APK shell
+        uses: actions/upload-artifact@v4
+        with:
+          name: HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL
+          path: HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
+
+      - name: Commit compiled shell on push builds
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add HIRA_VAVAKA_FIARAM_v1.3.3_FULL_HIRA_SHELL.apk
+          git commit -m "Build HIRA_VAVAKA_FIARAM v1.3.3 full HIRA shell" || exit 0
+          git push

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="mg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b4d3b">
+<title>HIRA&VAVAKA_FIARAM</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7f5;color:#17342a;font-family:Arial,sans-serif}.wrap{max-width:760px;margin:auto;padding:18px}.top{background:linear-gradient(135deg,#093c2f,#1d6b50);color:#fff;border-radius:18px;padding:18px;text-align:center}.logo{width:120px;height:120px;object-fit:contain;background:#fff;border-radius:24px;padding:8px}.title{font-size:26px;font-weight:800;margin:10px 0 4px}.ver{font-size:13px;opacity:.9}.ok{background:#e8f4ed;border:1px solid #b7d7c5;border-radius:16px;padding:14px;margin:16px 0;text-align:center;font-weight:800;color:#125b3b}.song{background:#fff;border:1px solid #d7dfda;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px #14302412}.head{padding:16px;border-bottom:1px solid #e5ebe7}.badge{display:inline-block;background:#165c46;color:#fff;padding:5px 10px;border-radius:8px;font-weight:800}.song h2{font-family:Georgia,serif;font-size:28px;margin:10px 0 4px;color:#15231f}.toneLabel{font-size:12px;color:#66746e;font-weight:700}.tone{font-size:42px;font-weight:900;color:#9a6500}.lyrics{padding:18px;font-family:Georgia,serif;font-size:22px;line-height:1.55;white-space:pre-line}.tools{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 16px}.tools button{border:1px solid #c8d3cb;background:#fff;border-radius:10px;padding:9px 12px;font-weight:700}.tools .primary{background:#165c46;color:#fff}.about{margin-top:16px;background:#fff;border:1px solid #d7dfda;border-radius:16px;padding:14px;font-size:13px;line-height:1.5;color:#4d5a54}.note{font-size:12px;color:#6a756f;text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <img class="logo" src="file:///android_res/drawable/app_icon.png" alt="Logo officiel">
+    <div class="title">HIRA&amp;VAVAKA_FIARAM</div>
+    <div class="ver">v1.3.2 INSTALL SAFE • TECNO SPARK 8P / Android 11</div>
+  </div>
+  <div class="ok">✓ APK reconstruite entièrement avant signature — test WebView</div>
+  <div class="song">
+    <div class="head">
+      <span class="badge">HIRA 553</span>
+      <h2>Arovy aho Tompo,</h2>
+      <div><span class="toneLabel">TONALITÉ</span> <span class="tone">G</span></div>
+    </div>
+    <div id="lyrics" class="lyrics">Arovy aho Tompo,
+Atolotro izao
+Ny tenako hanompo
+Sy hankalaza Anao.
+Omeo ahy ny hery
+Sy ny faharetam-po
+Arovy tsy ho very
+Izay anjarako.</div>
+    <div class="tools">
+      <button onclick="smaller()">A−</button><button onclick="resetFont()">A</button><button onclick="larger()">A+</button>
+      <button class="primary" onclick="saveTest()">Tester l’enregistrement</button>
+    </div>
+  </div>
+  <div class="about"><b>Développé par Jean Brunel ANDRIAMIHAJA</b><br>E-mail : andriamihajabrunelfiaram@gmail.com<br>Tél. : 034 50 524 52<br>Adresse : Ambohimangaly, Ambatondrazaka<br><br><b>FISAORANA</b><br>Isaorana Jesosy Tompo, Ny Mpaminany Nenitoa, Ny Mpanompon'Andriamanitra Pastora Paul mivady, Tonton Sedera mivady, Ny EQUIPE SONORISATION_MPANAN-TALENTA rehetra.</div>
+  <div class="note">Cette v1.3.2 sert à valider définitivement l’installation + WebView avant d’intégrer les 691 chants dans le même processus Gradle.</div>
+</div>
+<script>
+let fs=22;function apply(){document.getElementById('lyrics').style.fontSize=fs+'px'}function smaller(){fs=Math.max(16,fs-2);apply()}function larger(){fs=Math.min(40,fs+2);apply()}function resetFont(){fs=22;apply()}function saveTest(){localStorage.setItem('hira132-test','OK');alert('Enregistrement local OK ✓')}
+</script>
+</body></html>
